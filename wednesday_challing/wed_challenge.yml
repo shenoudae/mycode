@@ -1,0 +1,20 @@
+Name: Wednesday_challenge
+host: planetexpress:!farnsworth
+connection: ssh
+gather_facts: yes
+
+vars_files:
+  ~/mycode/vars/wed_challenge_names_yml
+
+task:
+- name: install figlet
+   anisble.builtin.package:
+     name: figlet
+     state: present
+  become: yes
+
+- name: create users
+  ansible-builtin-user:
+    name: {{item}}
+
+
