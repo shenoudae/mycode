@@ -1,0 +1,14 @@
+---
+- name: copy congrats msg
+  host: fry
+  connection: ssh
+  gather-facts: no
+
+  file: ~/mycode/congrats.txt
+
+  tasks:
+    - name: copy file
+
+  become: true
+
+

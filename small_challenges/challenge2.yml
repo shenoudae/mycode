@@ -1,0 +1,28 @@
+---
+- name: Get-URL challenge
+  hosts: localhost  # target ourselves
+  connection: local # we do not want to SSH anywhere. Run these actions locally
+  gather_facts: no  # no need to gather_facts about ourselves (defines ansible_facts)
+
+  tasks:
+    - name: Access the API
+      ansible.builtin.uri:
+        method: GET # send an HTTP GET to the location defined by param "url" (default)
+        url: https://swapi.dev/
+        return_content: true
+      register: challeng2  # save the "response" (defines the var validateurl)
+
+    - name: "INFO: HTTP Response for the URL"
+      ansible.builtin.debug:   # the debug module prints to the screen
+              var: challeng2.msg
+
+
+    - name: Show that the content was still retrieved
+      ansible.builtin.debug:
+              var: challenge2.content
+
+    - name: Put secret content into a file
+      ansible.builtin.copy:
+        content: "{{ challenge2.content }}"
+        dest: ~/ansible-downloaded-the-secret-file.txt
+     
